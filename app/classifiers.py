@@ -69,9 +69,7 @@ def treinar(classifier):
     # calculando as métricas de avaliação
     accuracy = metrics.accuracy_score(y_test, y_pred)
     precision = metrics.precision_score(y_test, y_pred, average='macro')
-    recall = metrics.recall_score(y_test, y_pred, average='macro')
-    f1_score = metrics.f1_score(y_test, y_pred, average='macro')
 
     img_str = matrix_confusao(y_test, y_pred)
 
-    return accuracy, precision, recall, f1_score, img_str
+    return accuracy, precision, img_str

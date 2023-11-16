@@ -42,12 +42,10 @@
                     {% if confusion_matrix_img %}
                         <img src="data:image/png;base64,{{ confusion_matrix_img }}" alt="Matriz de Confusão">
                         <p>Classificador: {{ classifier }}</p>
-                        <p>Parâmetro: {{ parameter }}</p>
-                        <p>Valor: {{ value }}</p>
+                        <p>Parâmetro Usado: {{ parameter }}</p>
+                        <p>Valor Inserido: {{ value }}</p>
                         <p>Acurácia: {{ accuracy }}</p>
                         <p>Precisão: {{ precision }}</p>
-                        <p>Recall: {{ recall }}</p>
-                        <p>F1-Score: {{ f1_score }}</p>
                     {% endif %}
                 </div>
             </div>

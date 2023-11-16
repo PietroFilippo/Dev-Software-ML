@@ -29,7 +29,7 @@ def treinar(classifier):
 
     # matriz de confusão
     plt.figure()
-    plt.matshow(confusion_matrix, cmap='viridis')
+    plt.matshow(confusion_matrix, cmap='Blues')
     for i in range(confusion_matrix.shape[0]):
         for j in range(confusion_matrix.shape[1]):
             plt.text(j, i, str(confusion_matrix[i, j]), ha='center', va='center')
@@ -119,6 +119,4 @@ def resultado():
                            parameter=parameter_name,
                            value=parameter_value,
                            accuracy=accuracy,
-                           precision=precision,
-                           recall=recall,
-                           f1_score=f1_score)
+                           precision=precision)
