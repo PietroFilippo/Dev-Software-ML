@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificadores</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <form action="/result" method="post">
+                            <div class="form-group">
+                                <label for="classifier" class="text-white">Classificador:</label>
+                                <select class="form-control" name="classifier" id="classifier">
+                                    {% for classifier in classifiers %}
+                                        <option value="{{ classifier }}" class="text-dark">{{ classifier }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="parameter" class="text-white">Parâmetro:</label>
+                                <input type="text" class="form-control" name="parameter" id="parameter" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="value" class="text-white">Valor:</label>
+                                <input type="text" class="form-control" name="value" id="value" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Treinar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="confusionMatrixContainer" class="text-center bg-dark text-white">
+                    {% if confusion_matrix_img %}
+                        <img src="data:image/png;base64,{{ confusion_matrix_img }}" alt="Matriz de Confusão">
+                        <p>Classificador: {{ classifier }}</p>
+                        <p>Parâmetro: {{ parameter }}</p>
+                        <p>Valor: {{ value }}</p>
+                        <p>Acurácia: {{ accuracy }}</p>
+                        <p>Precisão: {{ precision }}</p>
+                        <p>Recall: {{ recall }}</p>
+                        <p>F1-Score: {{ f1_score }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
