@@ -3,53 +3,9 @@ from sklearn import metrics, datasets
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
-from app.classifiers import classificadores as classifiers, parametros as parameters
+from app.classifiers import classificadores as classifiers, parametros as parameters, treinar, get_classifier_names
 import io
 import base64
-
-
-# treinar o classificador e avaliar seu desempenho e retornar a matriz de confusão
-def treinar(classifier):
-    iris = datasets.load_iris()
-    X, y = iris.data, iris.target
-
-    # teste do conjunto de dados
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    classifier.fit(X_train, y_train)
-    y_pred = classifier.predict(X_test)
-
-    # calculando as métricas de avaliação
-    accuracy = metrics.accuracy_score(y_test, y_pred)
-    precision = metrics.precision_score(y_test, y_pred, average='macro')
-    recall = metrics.recall_score(y_test, y_pred, average='macro')
-    f1_score = metrics.f1_score(y_test, y_pred, average='macro')
-
-    confusion_matrix = metrics.confusion_matrix(y_test, y_pred)
-
-    # matriz de confusão
-    plt.figure()
-    plt.matshow(confusion_matrix, cmap='Blues')
-    for i in range(confusion_matrix.shape[0]):
-        for j in range(confusion_matrix.shape[1]):
-            plt.text(j, i, str(confusion_matrix[i, j]), ha='center', va='center')
-
-    plt.title('Confusion Matrix')
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    plt.tight_layout()
-
-    img_buf = io.BytesIO()
-    plt.savefig(img_buf, format='png')
-    img_buf.seek(0)
-    img_str = base64.b64encode(img_buf.read()).decode('utf-8')
-
-    return accuracy, precision, recall, f1_score, img_str
-
-
-# obter os nomes dos classificadores disponíveis
-def get_classifier_names():
-    return ['KNN', 'SVM', 'MLP', 'DT', 'RF']
 
 
 main_routes = Blueprint('main', __name__)
@@ -101,7 +57,7 @@ def resultado():
         try:
             parametros[parameter_name] = float(parameter_value)
         except ValueError:
-            return jsonify({'error': f'valor de {parameter_name} deve ser um número.'}), 400
+            return jsonify({'error': f'valor de {parameter_name} deve ser um número inteiro ou float.'}), 400
     else:
         # caso contrário é usado o valor diretamente
         parametros[parameter_name] = parameter_value
