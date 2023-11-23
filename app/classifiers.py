@@ -35,26 +35,6 @@ def parametros(name):
     return parameters.get(name)
 
 
-# gerar a imagem da matriz de confusão
-def matrix_confusao(y_true, y_pred):
-    confusion_matrix = metrics.confusion_matrix(y_true, y_pred)
-
-    # plotando a matriz de confusão
-    fig, ax = plt.subplots()
-    ax.matshow(confusion_matrix, cmap='viridis')
-    plt.title('Confusion Matrix')
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    plt.tight_layout()
-
-    img_buf = io.BytesIO()
-    plt.savefig(img_buf, format='png')
-    img_buf.seek(0)
-    img_str = base64.b64encode(img_buf.read()).decode('utf-8')
-
-    return img_str
-
-
 # treinar o classificador e avaliar seu desempenho e retornar a matriz de confusão
 def treinar(classifier):
     iris = datasets.load_iris()
@@ -83,9 +63,9 @@ def treinar(classifier):
         for j in range(confusion_matrix.shape[1]):
             plt.text(j, i, str(confusion_matrix[i, j]), ha='center', va='center')
 
-    plt.title('Confusion Matrix')
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
+    plt.title('Matriz Confusão')
+    plt.xlabel('Previsto')
+    plt.ylabel('Acertos')
     plt.tight_layout()
 
     img_buf = io.BytesIO()

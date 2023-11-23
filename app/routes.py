@@ -52,7 +52,7 @@ def resultado():
         try:
             parametros[parameter_name] = int(float(parameter_value))
         except ValueError:
-            return jsonify({'error': f'valor de {parameter_name} deve ser um número inteiro.'}), 400
+            return jsonify({'error': f'valor de {parameter_name} deve ser um número inteiro ou float.'}), 400
     elif parameter_name == 'C':
         try:
             parametros[parameter_name] = float(parameter_value)
@@ -75,4 +75,6 @@ def resultado():
                            parameter=parameter_name,
                            value=parameter_value,
                            accuracy=accuracy,
-                           precision=precision)
+                           precision=precision,
+                           recall=recall,
+                           f1_score=f1_score)
